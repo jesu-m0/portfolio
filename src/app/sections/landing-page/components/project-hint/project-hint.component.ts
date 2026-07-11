@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectCardV2Component } from '../../../../shared/elements/project-card-v2/project-card-v2.component';
 import { RedirectButtonComponent } from '../../../../shared/elements/redirect-button/redirect-button.component';
 import { ProjectCardV3Component } from '../../../../shared/elements/project-card-v3/project-card-v3.component';
 import { TitleComponent } from '../../../../shared/elements/title/title.component';

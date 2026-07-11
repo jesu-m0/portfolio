@@ -14,6 +14,7 @@ describe('PhotoVideoCarouselComponent', () => {
 
     fixture = TestBed.createComponent(PhotoVideoCarouselComponent);
     component = fixture.componentInstance;
+    component.photos = [];
     fixture.detectChanges();
   });
 

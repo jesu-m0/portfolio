@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { AboutMeHintComponent } from './about-me-hint.component';
 
@@ -8,7 +9,8 @@ describe('AboutMeHintComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AboutMeHintComponent]
+      imports: [AboutMeHintComponent],
+      providers: [provideRouter([])],
     })
     .compileComponents();
 

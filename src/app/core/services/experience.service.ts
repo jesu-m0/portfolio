@@ -14,7 +14,7 @@ export class ExperienceService {
       period: 'Sept 2025 - Present',
       roleHighlights: [
         "Building internal business tools and dashboards with <span class='text-black'>Svelte</span> for the frontend and <span class='text-black'>Spring Boot</span> on the backend, using both <span class='text-black'>PostgreSQL</span> and <span class='text-black'>MongoDB</span> depending on the use case.",
-        "Updatin and developing new features from scratch based on business requirements, making decisions on architecture and implementation details along the way.",
+        "Updating and developing new features from scratch based on business requirements, making decisions on architecture and implementation details along the way.",
         "Setting up and managing <span class='text-black'>Docker and Kubernetes</span> deployments to keep things running smoothly across environments.",
         "Working on <span class='text-black'>CI/CD pipelines</span> using <span class='text-black'>GitLab</span> to automate builds and deployments.",
       ],

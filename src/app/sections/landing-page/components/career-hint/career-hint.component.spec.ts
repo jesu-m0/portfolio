@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { CareerHintComponent } from './career-hint.component';
 
@@ -8,7 +9,8 @@ describe('CareerHintComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CareerHintComponent]
+      imports: [CareerHintComponent],
+      providers: [provideRouter([])],
     })
     .compileComponents();
 

@@ -25,10 +25,13 @@ export class ContactMeComponent {
 
   constructor(private fb: FormBuilder, private contactService: ContactService) {
     this.contactMe = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      subject: ['', Validators.required],
-      message: ['', Validators.required],
+      name: ['', [Validators.required, Validators.maxLength(100)]],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(254)]],
+      subject: ['', [Validators.required, Validators.maxLength(150)]],
+      message: ['', [Validators.required, Validators.maxLength(5000)]],
+      // Honeypot: hidden from real visitors, bots tend to fill it in.
+      // The API silently drops submissions where it has a value.
+      company: [''],
     });
   }
 

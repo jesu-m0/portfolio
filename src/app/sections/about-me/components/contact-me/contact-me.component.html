@@ -5,6 +5,18 @@
   novalidate
   class="flex flex-col gap-4"
   >
+  <!-- honeypot: invisible to visitors, catches bots that fill every field -->
+  <div class="sr-only" aria-hidden="true">
+    <label for="company">Company</label>
+    <input
+      id="company"
+      type="text"
+      formControlName="company"
+      tabindex="-1"
+      autocomplete="off"
+      />
+  </div>
+
   <!-- name -->
   <div class="relative w-full group">
     <input
@@ -85,8 +97,8 @@
           >Subject</label
           >
           @if (
-            contactMe.get('email')!.touched &&
-            contactMe.get('email')!.hasError('required')
+            contactMe.get('subject')!.touched &&
+            contactMe.get('subject')!.hasError('required')
             ) {
             <div
               class="text-sm text-red-600"

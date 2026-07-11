@@ -1,59 +1,39 @@
-# Jmoreno
+# jmoreno.dev
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.11.
+Personal portfolio of Jesús Moreno Durán — [jmoreno.dev](https://jmoreno.dev). Built with Angular and Tailwind CSS, installable as a PWA, with a serverless contact-form API.
 
-## Development server
+## Stack
 
-To start a local development server, run:
+- **Frontend:** Angular 21 (standalone components), Tailwind CSS 4, self-hosted [Rethink Sans](https://fontsource.org/fonts/rethink-sans)
+- **PWA:** Angular service worker (`ngsw-config.json`)
+- **Contact API:** serverless function in [`api/send-email.js`](api/send-email.js) using Nodemailer (Gmail SMTP) and Handlebars email templates
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Development
 
 ```bash
-ng generate component component-name
+npm install
+npm start          # dev server at http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The contact form posts to `/api/send-email`, which only exists on the deployment platform — locally the form will fail unless you run the function through your platform's CLI (e.g. `vercel dev`).
+
+## Contact-form API
+
+`api/send-email.js` sends two emails per submission (a notification to me, a confirmation to the visitor). It validates and length-caps all fields, escapes HTML in the message, drops submissions that fill the hidden honeypot field, and rate-limits per IP.
+
+Required environment variables:
+
+| Variable | Purpose |
+| --- | --- |
+| `GMAIL_USER` | Gmail address used to send mail |
+| `GMAIL_APP_PASS` | Gmail [app password](https://support.google.com/accounts/answer/185833) |
+| `FROM_NAME` | Display name for outgoing mail |
+| `CONTACT_EMAIL` | Address that receives contact notifications |
+
+## Testing & building
 
 ```bash
-ng generate --help
+npm test                                        # Karma/Jasmine, watch mode
+npx ng test --watch=false --browsers=ChromeHeadless   # single run
+npm run build                                   # production build to dist/
 ```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
