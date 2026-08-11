@@ -21,7 +21,7 @@
     "@fontsource/rethink-sans": "^5.2.5",
     "@tailwindcss/postcss": "^4.1.6",
     "handlebars": "^4.7.8",
-    "nodemailer": "^7.0.3",
+    "nodemailer": "^9.0.5",
     "postcss": "^8.5.3",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.1.6",
@@ -43,6 +43,11 @@
   },
   "overrides": {
     "picomatch": "^4.0.4",
-    "undici": "^7.24.6"
+    "undici": "^7.24.6",
+    "less": "^4.8.1",
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "sockjs": {
+      "uuid": "^11.1.1"
+    }
   }
 }

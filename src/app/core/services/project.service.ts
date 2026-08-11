@@ -8,6 +8,19 @@ export class ProjectService {
   private projectIndex: number = 3; //index used in the portfolio "3a", "3b", "3c"...
   private projects: Project[] = [
     {
+      title: 'Pinpoint',
+      github: 'https://github.com/jesu-m0/ac-pinpoint',
+      images: [
+        'assets/images/projects/ac-pinpoint/tosa-1st-cam.jpg',
+        'assets/images/projects/ac-pinpoint/villeneuve-3rd-cam.jpg',
+        'assets/images/projects/ac-pinpoint/mod-tab-1st-view.jpg',
+      ],
+      date: 'feb 2026',
+      tech: ['Lua', 'CSP', 'Assetto Corsa'],
+      description:
+        'An in-game app for Assetto Corsa that lets you place custom braking reference markers anywhere on track with a single key press. Built in Lua on top of Custom Shaders Patch (CSP), it paints red semi-transparent lines flat on the road surface — visible from a distance like spray-painted markings — with labels, undo and clear shortcuts, and markers saved automatically per car and track combination. Created to learn braking points faster when practicing new circuits, and as my first experience scripting inside a game.',
+    },
+    {
       title: 'TickTockClock',
       url: 'https://ticktockclock.jmoreno.dev/',
       github: 'https://github.com/jesu-m0/TickTockClock',
