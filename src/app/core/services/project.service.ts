@@ -8,6 +8,27 @@ export class ProjectService {
   private projectIndex: number = 3; //index used in the portfolio "3a", "3b", "3c"...
   private projects: Project[] = [
     {
+      title: 'DeltaHunter',
+      url: 'https://delta-hunter.jmoreno.dev/',
+      github: 'https://github.com/jesu-m0/DeltaHunter',
+      images: [
+        'assets/images/projects/deltahunter/dashboard-overview.png',
+        'assets/images/projects/deltahunter/sector-detail.png',
+        'assets/images/projects/deltahunter/telemetry-card.png',
+        'assets/images/projects/deltahunter/telemetry-charts.png',
+        'assets/images/projects/deltahunter/key-findings.png',
+        'assets/images/projects/deltahunter/playback-mobile.jpg',
+        'assets/images/projects/deltahunter/circuit-map-mobile.jpg',
+        'assets/images/projects/deltahunter/sector-detail-mobile.jpg',
+        'assets/images/projects/deltahunter/telemetry-card-mobile.jpg',
+        'assets/images/projects/deltahunter/charts-mobile.jpg',
+      ],
+      date: 'mar 2026',
+      tech: ['Next.js', 'TypeScript', 'Python', 'Tailwind'],
+      description:
+        "A telemetry comparison tool for Assetto Corsa. Upload two MoTeC .ld files. A Python serverless backend handles the parsing and comparison. Speed, time delta, gear, RPM with upshift markers, throttle, brake and trail braking, plus a GPS circuit map with per-sector deltas and a zoomed racing-line view for each corner. It also turns the numbers into coaching tips, and replays the lap along the track at adjustable speed. The demo data compares me against Cavalli, an actual pro driver. Those 5.7 seconds he has on me are exactly why this tool exists."
+    },
+    {
       title: 'Pinpoint',
       github: 'https://github.com/jesu-m0/ac-pinpoint',
       images: [
@@ -18,7 +39,7 @@ export class ProjectService {
       date: 'feb 2026',
       tech: ['Lua', 'CSP', 'Assetto Corsa'],
       description:
-        'An in-game app for Assetto Corsa that lets you place custom braking reference markers anywhere on track with a single key press. Built in Lua on top of Custom Shaders Patch (CSP), it paints red semi-transparent lines flat on the road surface — visible from a distance like spray-painted markings — with labels, undo and clear shortcuts, and markers saved automatically per car and track combination. Created to learn braking points faster when practicing new circuits, and as my first experience scripting inside a game.',
+        'A mod for Assetto Corsa that lets you place custom braking reference markers anywhere on track with a single key press. Sometimes is dificult to find a visual reference... Built in Lua on top of Custom Shaders Patch.',
     },
     {
       title: 'TickTockClock',
