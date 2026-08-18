@@ -15,11 +15,15 @@
           <app-photo-video-carousel
             [photos]="project.images"
             [videos]="project.videos"
+            [enableLightbox]="true"
             >
           </app-photo-video-carousel>
         } @else {
           <!-- videos array is empty -->
-          <app-photo-video-carousel [photos]="project.images">
+          <app-photo-video-carousel
+            [photos]="project.images"
+            [enableLightbox]="true"
+            >
           </app-photo-video-carousel>
         }
       }

@@ -1,29 +1,17 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-
-interface PhotoDimension {
-  src: string;
-  width: number;
-  height: number;
-  alt?: string;
-}
-
-interface PhotoItem {
-  type: 'photo';
-  photo: PhotoDimension;
-}
-
-interface VideoItem {
-  type: 'video';
-  video: SafeResourceUrl;
-}
-
-type CarouselItem = PhotoItem | VideoItem;
+import {
+  CarouselItem,
+  PhotoDimension,
+  PhotoItem,
+  VideoItem,
+} from '../../../core/models/media-item.model';
+import { MediaLightboxComponent } from '../media-lightbox/media-lightbox.component';
 
 @Component({
   selector: 'app-photo-video-carousel',
-  imports: [CommonModule, NgOptimizedImage],
+  imports: [CommonModule, NgOptimizedImage, MediaLightboxComponent],
   templateUrl: './photo-video-carousel.component.html',
   styleUrl: './photo-video-carousel.component.css',
 })
@@ -34,7 +22,14 @@ export class PhotoVideoCarouselComponent {
   @Input() videos?: string[];
   safeVideos: SafeResourceUrl[] = []; // will store sanitazed link for videos
 
+  /** Opt-in: click a slide to open it full-screen. Off keeps the previous behaviour. */
+  @Input() enableLightbox = false;
+  lightboxOpen = false;
+
   currentIndex = 0;
+
+  /** Rebuilt only when the source media changes, so the reference stays stable. */
+  items: CarouselItem[] = [];
 
   constructor(private sanitizer: DomSanitizer) {}
 
@@ -42,6 +37,7 @@ export class PhotoVideoCarouselComponent {
     this.loadAllDimensions(this.photos)
       .then((all) => {
         this.photoData = all;
+        this.rebuildItems();
       })
       .catch((err) => {
         console.error('Error measuring images:', err);
@@ -50,6 +46,7 @@ export class PhotoVideoCarouselComponent {
     this.safeVideos = (this.videos || []).map((video) =>
       this.sanitizer.bypassSecurityTrustResourceUrl(video)
     );
+    this.rebuildItems();
   }
 
   private loadAllDimensions(urls: string[]): Promise<PhotoDimension[]> {
@@ -87,7 +84,7 @@ export class PhotoVideoCarouselComponent {
     });
   }
 
-  get items(): CarouselItem[] {
+  private rebuildItems(): void {
     // Map each photoData[] entry into a PhotoItem
     const photoItems: PhotoItem[] = this.photoData.map((p) => ({
       type: 'photo',
@@ -100,7 +97,16 @@ export class PhotoVideoCarouselComponent {
       video: sv,
     }));
 
-    return [...photoItems, ...videoItems];
+    this.items = [...photoItems, ...videoItems];
+  }
+
+  openLightbox(): void {
+    if (!this.enableLightbox || this.items.length === 0) return;
+    this.lightboxOpen = true;
+  }
+
+  closeLightbox(): void {
+    this.lightboxOpen = false;
   }
 
   goToSlide(index: number) {

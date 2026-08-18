@@ -1,6 +1,6 @@
 <div class="relative w-full mx-auto">
   <!-- Slides -->
-  <div class="aspect-[1/1] md:aspect-[16/9] overflow-hidden">
+  <div class="relative aspect-[1/1] md:aspect-[16/9] overflow-hidden">
     @for (item of items; track trackByIndex(i, item); let i = $index) {
       <div
         [hidden]="i !== currentIndex"
@@ -8,7 +8,11 @@
         >
         <!-- Image -->
         @if (item.type === 'photo') {
-          <div class="relative w-full h-full">
+          <div
+            class="relative w-full h-full"
+            [class.cursor-zoom-in]="enableLightbox"
+            (click)="openLightbox()"
+            >
             <!-- Blurred Background Image -->
             <div class="absolute inset-0 z-0" style="pointer-events: none">
               <img
@@ -46,6 +50,27 @@
               ></iframe>
             }
           </div>
+        }
+
+        <!--
+          Expand affordance. Also the keyboard entry point, and the only way in
+          for video slides, since the iframe swallows clicks itself.
+        -->
+        @if (enableLightbox && items.length > 0) {
+          <button
+            (click)="openLightbox()"
+            aria-label="View media full screen"
+            class="absolute top-2 right-2 bg-white/50 backdrop-blur-sm p-2 border border-secondary-grey z-20 w-8 h-8 flex items-center justify-center"
+            >
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"
+                />
+            </svg>
+          </button>
         }
       </div>
 
@@ -101,3 +126,13 @@
             }
           </div>
         </div>
+
+<!-- Full-screen viewer -->
+@if (enableLightbox && lightboxOpen) {
+  <app-media-lightbox
+    [items]="items"
+    [index]="currentIndex"
+    (indexChange)="goToSlide($event)"
+    (closed)="closeLightbox()"
+  ></app-media-lightbox>
+}

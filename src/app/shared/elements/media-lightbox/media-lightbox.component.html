@@ -1,0 +1,133 @@
+<div
+  #dialog
+  role="dialog"
+  aria-modal="true"
+  aria-label="Project media viewer"
+  class="fixed inset-0 z-[100] flex flex-col"
+  >
+  <!-- Backdrop: clicking anywhere outside the media closes the viewer -->
+  <div
+    class="backdrop absolute inset-0 bg-black/90"
+    [class.is-closing]="closing"
+    (click)="onBackdropClick()"
+    ></div>
+
+  <!-- Slide counter, balanced against the close affordance -->
+  <div class="relative z-10 flex items-center justify-between gap-3 p-4">
+    <span class="text-sm text-white/60 tabular-nums select-none">
+      @if (hasMultiple) {
+        {{ index + 1 }} / {{ items.length }}
+      }
+    </span>
+
+    <div class="flex items-center gap-3">
+      <span class="text-sm text-white/60 select-none hidden sm:inline">
+        press Esc to close
+      </span>
+      <button
+        #closeButton
+        type="button"
+        (click)="close()"
+        aria-label="Close"
+        class="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white w-10 h-10 flex items-center justify-center transition-colors"
+        >
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+            />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Media -->
+  <div
+    class="relative z-10 flex-1 flex items-center justify-center px-4 min-h-0"
+    (click)="onBackdropClick()"
+    (pointerdown)="onPointerDown($event)"
+    (pointerup)="onPointerUp($event)"
+    >
+    @if (currentItem; as item) {
+      <div class="media" [class.is-closing]="closing" (click)="$event.stopPropagation()">
+        @if (item.type === 'photo') {
+          <img
+            [src]="item.photo.src"
+            [alt]="item.photo.alt ?? 'Project screenshot'"
+            class="max-w-[92vw] max-h-[78vh] object-contain"
+            />
+        }
+        @if (item.type === 'video') {
+          <iframe
+            [src]="item.video"
+            title="Project demo video"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            class="w-[92vw] max-w-5xl aspect-video"
+          ></iframe>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Bottom bar: arrows flanking the position dots -->
+  @if (hasMultiple) {
+    <div class="relative z-10 flex items-center justify-center gap-4 p-6">
+      <button
+        type="button"
+        (click)="prev()"
+        aria-label="Previous image"
+        class="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white w-8 h-8 flex items-center justify-center transition-colors"
+        >
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+            />
+        </svg>
+      </button>
+
+      <div class="flex items-center gap-[3px]">
+        @for (_ of items; track trackByIndex(i); let i = $index) {
+          <button
+            type="button"
+            (click)="goToSlide(i)"
+            [attr.aria-label]="'Go to slide ' + (i + 1)"
+            [attr.aria-current]="i === index"
+            class="h-2 bg-white/40 transition-all ease-in-out duration-300 rounded"
+            [ngClass]="{
+              'w-2': i !== index,
+              'w-10 bg-white': i === index
+            }"
+          ></button>
+        }
+      </div>
+
+      <button
+        type="button"
+        (click)="next()"
+        aria-label="Next image"
+        class="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white w-8 h-8 flex items-center justify-center transition-colors"
+        >
+        <svg
+          class="w-4 h-4 rotate-180"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+            />
+        </svg>
+      </button>
+    </div>
+  }
+</div>
